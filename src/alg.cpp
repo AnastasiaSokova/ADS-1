@@ -4,33 +4,28 @@
 
 
 bool checkPrime(uint64_t value) {
-    uint64_t i = 2, j = 0;
-    while (i * i <= value && j != 1) {
-        if (value % i == 0) {
-            j = 1;
-        } else {
-            i += 1;
+    if (value < 2) {
+        return false;
+    }
+    for (uint64_t i = 2; i <= sqrt(value); ++i) {
+        if (!(value % i)) {
+            return false;
         }
     }
-    if (j == 1) {
-        return false;
-    } else {
-        return true;
-    }
+    return true;
 }
 
 uint64_t nPrime(uint64_t n) {
     int k = 0;
+    bool flag = false;
     for (uint64_t value = 2; value < UINT64_MAX; ++value) {
-        uint64_t i = 2, j = 0;
-        while (i * i <= value && j != 1) {
-            if (value % i == 0) {
-                j = 1;
-            } else {
-                i += 1;
+        flag = false;
+        for (uint64_t i = 2; i <= sqrt(value); ++i) {
+            if (!(value % i)) {
+                flag = true;
             }
         }
-        if (j != 1) {
+        if (!flag) {
             k++;
         }
         if (k == n) {
@@ -40,16 +35,15 @@ uint64_t nPrime(uint64_t n) {
 }
 
 uint64_t nextPrime(uint64_t value) {
+    bool flag = false;
     for (uint64_t m = value + 1; m < UINT64_MAX; ++m) {
-        uint64_t i = 2, j = 0;
-        while (i * i <= m && j != 1) {
-            if (m % i == 0) {
-                j = 1;
-            } else {
-                i += 1;
+        flag = false;
+        for (uint64_t i = 2; i <= sqrt(m); ++i) {
+            if (!(m % i)) {
+                flag = true;
             }
         }
-        if (j != 1) {
+        if (!flag) {
             return m;
         }
     }
